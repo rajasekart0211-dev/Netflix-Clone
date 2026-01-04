@@ -54,5 +54,6 @@
     background: #6d6d6e66;
 }
 .more-cards{
+    position: relative;
     padding-left: 6%;
 }

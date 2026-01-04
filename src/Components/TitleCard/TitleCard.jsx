@@ -1,30 +1,72 @@
 import './TitleCard.css'
-import cards_data from '../../assets/cards/Cards_data'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const TitleCard = (props) => {
 
-    const cardsref = useRef();
+  const navigate = useNavigate();
 
-    const handleWheel = (event)=>{
-      event.preventDefault();
-      cardsref.current.scrollLeft += event.deltaY;
+  const cardsref = useRef();
+
+  const handleWheel = (event) => {
+    event.preventDefault();
+    cardsref.current.scrollLeft += event.deltaY;
+  }
+
+  const [detailedMovies, setDetailedMovies] = useState([]);
+
+
+
+  async function fetchMovies() {
+    const res = await fetch(
+      `https://api.watchmode.com/v1/search/?apiKey=VdJ6Kd0OVBwnwBgxFluNVcYAgqYI5SwV505ADxCg&search_field=name&search_value=${props.search}`
+    );
+
+    const data = await res.json();
+    
+
+    if (!data.title_results) return;
+
+
+    const detailed = await Promise.all(
+      data.title_results.map(async (movie) => {
+        const res = await fetch(
+          `https://api.watchmode.com/v1/title/${movie.id}/details/?apiKey=VdJ6Kd0OVBwnwBgxFluNVcYAgqYI5SwV505ADxCg`
+        );
+        return await res.json();
+      })
+    );
+
+    setDetailedMovies(detailed);
+  }
+
+
+  useEffect(() => {
+    const cached = sessionStorage.getItem(props.search);
+
+    if (cached) {
+      setMovies(JSON.parse(cached));
+    } else {
+      fetchMovies();
     }
 
-    useEffect(()=>{
-      cardsref.current.addEventListener('wheel', handleWheel);
-    },[])
+    const ref = cardsref.current;
+    ref.addEventListener("wheel", handleWheel);
+
+    return () => ref.removeEventListener("wheel", handleWheel);
+  }, []);
+
 
   return (
     <div className='titlecards'>
-      <h2>{props.title ? props.title:"Popular on NetFlix"}</h2>
+      <h2>{props.title ? props.title : "Popular on NetFlix"}</h2>
       <div className="card-list" ref={cardsref}>
-        {cards_data.map((card, index)=>{
-         return <div className="card" key={index}>
-            <img src={card.image}/>
-            <p>{card.name}</p>
+        {detailedMovies.map((movie) => (
+          <div to="/player" onClick={()=>navigate(`/Player/${movie.id}`)} className="card" key={movie.id}>
+            <img src={movie.posterLarge || movie.posterMedium}/>
+            <p>{movie.title}</p>
           </div>
-        })}
+        ))}
       </div>
     </div>
   )

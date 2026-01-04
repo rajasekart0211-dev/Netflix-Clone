@@ -14,7 +14,8 @@
     display: none;
 }
 .card-list img{
-    width: 240px;
+    min-width: 240px;
+    height: 300px;
     border-radius: 4px;
     cursor: pointer;
 }
@@ -25,4 +26,6 @@
     position: absolute;
     bottom: 10px;
     right: 10px;
+    text-decoration: none;
+    color: white;
 }
