@@ -5,6 +5,7 @@ import Bell from '../../assets/bell_icon.svg'
 import Profile from '../../assets/profile_img.png'
 import Caret from '../../assets/caret_icon.svg'
 import { useEffect, useState } from 'react'
+import { MdOutlineMenu } from "react-icons/md";
 
 const Navbar = () => {
 
@@ -32,17 +33,19 @@ const Navbar = () => {
     <div className={`navbar ${show ? 'nav-black' : ''}`}>
         <div className="navbar-left">
             <img src={Logo} alt="" />
-            <ul>
+            <ul className='mobile-none'>
                 <li>Home</li>
                 <li>TV Shows</li>
                 <li>Movies</li>
                 <li>New & Popular</li>
                 <li>My List</li>
                 <li>Browse By Languages</li>
+                
             </ul>
+           
         </div>
 
-        <div className="navbar-right">
+        <div className="navbar-right mobile-none">
             <img src={Search} alt="" className='icons'/>
             <p>Children</p>
             <img src={Bell} alt="" className='icons'/>
@@ -56,6 +59,7 @@ const Navbar = () => {
                 </div>
             </div>
         </div>
+         <MdOutlineMenu className='burger-menu'/>
     </div>
   )
 }

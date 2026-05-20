@@ -15,7 +15,7 @@ const Home = () => {
           <img src={Hero} alt="" className='hero-img'/>
           <div className="hero-caption">
             <img src={Caption} alt="" className='caption-img'/>
-            <p>Discovering his ties to a secret  ancient  order, a young  man living 
+            <p className='caption'>Discovering his ties to a secret  ancient  order, a young  man living 
               in modern Instanbul embarks on a quest to save the city from an immortal 
               enemy.
             </p>
@@ -23,10 +23,11 @@ const Home = () => {
               <button className='btn'><img src={Play} alt="" />Play</button>
               <button className='btn dark'><img src={Info} alt="" />More Info</button>
             </div>
-            <TitleCard title={"Popular on NetFlix"} search="new"/>
+            
           </div>
         </div>
         <div className="more-cards">
+          <TitleCard title={"Popular on NetFlix"} search="new"/>
           <TitleCard title={"BlockBuster Movies"} search="avengers"/>
           <TitleCard title={"Only On NetFlix"} search="dark"/>
           <TitleCard title={"Upcoming"} search="action"/>
