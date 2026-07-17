@@ -1,39 +1,29 @@
 import './Home.css'
 import Navbar from '../../Components/Navbar/Navbar'
-import Hero from '../../assets/hero_banner.jpg'
-import Caption from '../../assets/hero_title.png'
-import Play from '../../assets/play_icon.png'
-import Info from '../../assets/info_icon.png'
+import Hero from '../../Components/Hero/Hero'
 import TitleCard from '../../Components/TitleCard/TitleCard'
 import Footer from '../../Components/Footer/Footer'
+import { CATEGORIES } from '../../utils/movies'
+import { useSearchParams } from 'react-router-dom'
 
 const Home = () => {
+  const [searchParams] = useSearchParams()
+  const activeCategory = searchParams.get('category')
+
+  const rows = activeCategory
+    ? CATEGORIES.filter((cat) => cat.key === activeCategory)
+    : CATEGORIES
+
   return (
-    <div className='home'>
-        <Navbar/>
-        <div className="hero">
-          <img src={Hero} alt="" className='hero-img'/>
-          <div className="hero-caption">
-            <img src={Caption} alt="" className='caption-img'/>
-            <p className='caption'>Discovering his ties to a secret  ancient  order, a young  man living 
-              in modern Instanbul embarks on a quest to save the city from an immortal 
-              enemy.
-            </p>
-            <div className="hero-btns">
-              <button className='btn'><img src={Play} alt="" />Play</button>
-              <button className='btn dark'><img src={Info} alt="" />More Info</button>
-            </div>
-            
-          </div>
-        </div>
-        <div className="more-cards">
-          <TitleCard title={"Popular on NetFlix"} category="new"/>
-          <TitleCard title={"BlockBuster Movies"} category="avengers"/>
-          <TitleCard title={"Only On NetFlix"} category="dark"/>
-          <TitleCard title={"Upcoming"} category="action"/>
-          <TitleCard title={"Top Picks For You"} category="love"/>
-        </div>
-        <Footer/>
+    <div className="home">
+      <Navbar />
+      <Hero />
+      <div className="more-cards">
+        {rows.map((category) => (
+          <TitleCard key={category.key} title={category.title} category={category.key} />
+        ))}
+      </div>
+      <Footer />
     </div>
   )
 }

@@ -4,31 +4,53 @@ import IG from '../../assets/instagram_icon.png'
 import FB from '../../assets/facebook_icon.png'
 import X from '../../assets/twitter_icon.png'
 
+const FOOTER_LINKS = [
+  'Audio Description',
+  'Help Centre',
+  'Gift Cards',
+  'Media Centre',
+  'Investor Relations',
+  'Jobs',
+  'Terms of Use',
+  'Privacy',
+  'Legal Notices',
+  'Cookie Preferences',
+  'Corporate Information',
+  'Contact Us',
+]
+
+const SOCIAL_LINKS = [
+  { icon: FB, label: 'Facebook', href: 'https://facebook.com' },
+  { icon: IG, label: 'Instagram', href: 'https://instagram.com' },
+  { icon: X, label: 'X', href: 'https://x.com' },
+  { icon: YT, label: 'YouTube', href: 'https://youtube.com' },
+]
+
 const Footer = () => {
   return (
-    <div className='Footer'>
+    <footer className="footer">
       <div className="footer-icons">
-        <img src={YT} alt="" />
-        <img src={IG} alt="" />
-        <img src={FB} alt="" />
-        <img src={X} alt="" />
+        {SOCIAL_LINKS.map((social) => (
+          <a
+            key={social.label}
+            href={social.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={social.label}
+          >
+            <img src={social.icon} alt="" />
+          </a>
+        ))}
       </div>
       <ul>
-        <li>Audio Description</li>
-        <li>Help Centre</li>
-        <li>Gift Cards</li>
-        <li>Media Centre</li>
-        <li>Investor Relations</li>
-        <li>Jobs</li>
-        <li>Terms Of Use</li>
-        <li>Privacy</li>
-        <li>Legal Notices</li>
-        <li>Cookie Preferences</li>
-        <li>Corporate Information</li>
-        <li>Conatct Us</li>
+        {FOOTER_LINKS.map((link) => (
+          <li key={link}>
+            <button type="button">{link}</button>
+          </li>
+        ))}
       </ul>
-      <p>copyright @ 1997-1015 NetFlix, Inc.</p>
-    </div>
+      <p className="footer-copy">&copy; 1997–{new Date().getFullYear()} Netflix, Inc.</p>
+    </footer>
   )
 }
 

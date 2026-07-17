@@ -1,113 +1,151 @@
-.navbar{
-    display: flex;
-    padding: 20px 6%;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    font-size: 14px;
-    color: #e5e5e5;
-    background-image: linear-gradient(180deg, rgba(0,0,0,0.7) 10%, transparent);
-    z-index: 100;
-    transition: background 0.3s ease;
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--navbar-height);
+  padding: 0 var(--page-padding);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 10%, transparent);
+  z-index: 100;
+  transition: background var(--transition-fast);
+  flex-wrap: nowrap; /* Prevent wrapping */
 }
 
-/* LEFT SIDE */
-.navbar-left{
-    display: flex;
-    align-items: center;
-    gap: 50px;
+.nav-black {
+  background: var(--color-bg);
 }
 
-.navbar-left img{
-    width: 90px;
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 3rem);
+  min-width: 0;
 }
 
-.navbar-left ul{
-    display: flex;
-    list-style: none;
-    align-items: center;
-    gap: 20px;
+.navbar-logo {
+  width: clamp(4.5rem, 8vw, 5.625rem);
 }
 
-.navbar-left ul li{
-    cursor: pointer;
+.navbar-nav ul {
+  display: flex;
+  list-style: none;
+  align-items: center;
+  gap: clamp(0.75rem, 1.5vw, 1.25rem);
 }
 
-/* RIGHT SIDE */
-.navbar-right{
-    display: flex;
-    gap: 20px;
-    align-items: center;
+.navbar-nav a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
 }
 
-.navbar-right .icons{
-    width: 20px;
-    cursor: pointer;
+.navbar-nav li.active a,
+.navbar-nav a:hover {
+  color: var(--color-text);
 }
 
-.navbar-right .profile{
-    border-radius: 4px;
-    width: 35px;
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 1.5vw, 1.25rem);
 }
 
-/* PROFILE DROPDOWN */
-.navbar-profile{
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    gap: 20px;
-    position: relative;
+.navbar-icon-btn {
+  border: none;
+  background: none;
+  padding: 0.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
-.navbar .dropdown{
-    position: absolute;
-    top: 100%;
-    right: 0;
-    width: max-content;
-    background-color: #191919;
-    padding: 18px 22px;
-    border-radius: 2px;
-    text-decoration: underline;
+.navbar-icon-btn .icons {
+  width: 1.25rem;
+}
+
+.navbar-children {
+  cursor: default;
+}
+
+.navbar-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  cursor: pointer;
+}
+
+.navbar-profile .profile {
+  width: 2rem;
+  border-radius: var(--radius-sm);
+}
+
+.navbar-profile .caret {
+  width: 0.75rem;
+}
+
+.navbar .dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  min-width: 11rem;
+  background: rgba(0, 0, 0, 0.9);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem;
+  display: none;
+}
+
+.navbar-profile:hover .dropdown,
+.navbar-profile:focus-within .dropdown {
+  display: block;
+}
+
+.navbar .dropdown button {
+  width: 100%;
+  border: none;
+  background: none;
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  text-align: left;
+  cursor: pointer;
+  padding: 0.375rem 0;
+  text-decoration: underline;
+}
+
+.navbar .dropdown button:hover {
+  color: white;
+}
+
+.burger-menu {
+  display: none;
+  border: none;
+  background: none;
+  font-size: 1.75rem;
+  color: white;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+@media (max-width: 900px) {
+  .navbar-nav,
+  .navbar-right {
     display: none;
-    z-index: 1;
+  }
+
+  .burger-menu {
+    display: flex;
+    align-items: center;
+  }
 }
 
-.navbar .dropdown p{
-    font-size: 13px;
-    cursor: pointer;
-}
-
-.navbar-profile:hover .dropdown{
-    display: block;
-}
-
-/* SCROLL EFFECT */
-.nav-black{
-    background: #141414;
-}
-
-/* BURGER MENU */
-.burger-menu{
-    display: none;
-    font-size: 30px;
-    cursor: pointer;
-    color: white;
-}
-
-/* RESPONSIVE */
-@media (max-width: 900px){
-
-    .navbar-left ul,
-    .navbar-right{
-        display: none;
-    }
-
-    .burger-menu{
-        display: block;
-    }
-
-    .navbar{
-        padding: 20px 4%;
-    }
+@media (max-width: 480px) {
+  .navbar {
+    height: 3.75rem;
+  }
 }

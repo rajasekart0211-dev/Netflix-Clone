@@ -1,0 +1,61 @@
+.my-list-page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--color-bg);
+}
+
+.my-list-main {
+  padding: calc(var(--navbar-height) + 2rem) var(--page-padding) 3rem;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.my-list-main h1 {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  margin-bottom: 1.5rem;
+}
+
+.my-list-empty {
+  padding: 3rem 1rem;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.my-list-empty-sub {
+  margin-top: 0.5rem;
+  font-size: var(--text-sm);
+}
+
+.my-list-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 8rem), 1fr));
+  gap: 1rem;
+}
+
+.my-list-card {
+  border: none;
+  padding: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  text-align: center;
+  transition: transform var(--transition-fast);
+}
+
+.my-list-card:hover,
+.my-list-card:focus-visible {
+  transform: scale(1.04);
+}
+
+.my-list-card img {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  margin-bottom: 0.5rem;
+}
+
+.my-list-card span {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}

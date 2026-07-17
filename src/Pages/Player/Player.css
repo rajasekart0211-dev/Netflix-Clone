@@ -1,43 +1,113 @@
-.player{
-    position: relative;
-    background: black;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.player {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  background: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: calc(var(--navbar-height) + 1rem) var(--page-padding) 1rem;
 }
 
-.player img{
-    position: absolute;
-    top: 5%;
-    left: 5%;
+.player--empty {
+  justify-content: center;
 }
 
-.player iframe{
-    width: 80%;
-    height: 80%;
-    border: none;
-    position: absolute;
-    top: 10%;
-    left: 10%;
+.player-back {
+  position: fixed;
+  top: 1rem;
+  left: var(--page-padding);
+  z-index: 10;
+  border: none;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background var(--transition-fast);
 }
 
-.poster{
-    width: 80%;
-    height: 80%;
-    border: none;
-    position: absolute;
-    top: 10%;
-    left: 10%;
+.player-back:hover {
+  background: rgba(0, 0, 0, 0.8);
 }
 
-.player-info{
-    position: absolute;
-    bottom: 1%;
-    left: 5%;
-    display: flex;
-    padding: 12px;
-    justify-content: space-around;
-    width: 100%;
+.player-back img {
+  width: 1.25rem;
+}
+
+.player iframe {
+  width: min(100%, 75rem);
+  aspect-ratio: 16 / 9;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: #000;
+}
+
+.player-poster {
+  width: min(100%, 24rem);
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+}
+
+.player-info {
+  width: min(100%, 75rem);
+  margin-top: 1.5rem;
+  padding-bottom: 2rem;
+}
+
+.player-info h1 {
+  font-size: clamp(1.25rem, 4vw, 2rem);
+  margin-bottom: 0.75rem;
+}
+
+.player-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.player-meta span {
+  font-size: var(--text-xs);
+  padding: 0.25rem 0.5rem;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+}
+
+.player-info p {
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  max-width: 48rem;
+}
+
+.player-error {
+  text-align: center;
+  padding: 2rem;
+}
+
+.player-error h1 {
+  font-size: clamp(1.25rem, 4vw, 1.75rem);
+  margin-bottom: 0.75rem;
+}
+
+.player-error p {
+  color: var(--color-text-muted);
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .player {
+    padding-top: 4rem;
+  }
+
+  .player-back {
+    top: 0.75rem;
+  }
 }

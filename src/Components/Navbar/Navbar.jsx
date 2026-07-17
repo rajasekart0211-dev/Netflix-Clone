@@ -1,66 +1,98 @@
 import './Navbar.css'
 import Logo from '../../assets/logo.png'
-import Search from '../../assets/search_icon.svg'
+import SearchIcon from '../../assets/search_icon.svg'
 import Bell from '../../assets/bell_icon.svg'
 import Profile from '../../assets/profile_img.png'
 import Caret from '../../assets/caret_icon.svg'
 import { useEffect, useState } from 'react'
-import { MdOutlineMenu } from "react-icons/md";
+import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { MdOutlineMenu } from 'react-icons/md'
+import { useApp } from '../../context/AppContext'
+
+const NAV_LINKS = [
+  { label: 'Home', to: '/' },
+  { label: 'TV Shows', to: '/?category=new' },
+  { label: 'Movies', to: '/?category=avengers' },
+  { label: 'New & Popular', to: '/?category=action' },
+  { label: 'My List', to: '/my-list' },
+]
 
 const Navbar = () => {
-
-  const [show, setShow] = useState(false)
+  const navigate = useNavigate()
+  const location = useLocation()
+  const { setMobileMenuOpen, logout, isAuthenticated } = useApp()
+  const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setShow(true)
-      } else {
-        setShow(false)
-      }
-    }
-
-    window.addEventListener('scroll', handleScroll)
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-
+    const handleScroll = () => setScrolled(window.scrollY > 50)
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  const isActive = (to) => {
+    if (to === '/') return location.pathname === '/' && !location.search
+    return location.pathname + location.search === to || location.pathname === to
+  }
+
   return (
-    <div className={`navbar ${show ? 'nav-black' : ''}`}>
-        <div className="navbar-left">
-            <img src={Logo} alt="" />
-            <ul className='mobile-none'>
-                <li>Home</li>
-                <li>TV Shows</li>
-                <li>Movies</li>
-                <li>New & Popular</li>
-                <li>My List</li>
-                <li>Browse By Languages</li>
-                
-            </ul>
-           
+    <header className={`navbar ${scrolled ? 'nav-black' : ''}`}>
+      <div className="navbar-left">
+        <Link to="/" aria-label="Netflix home">
+          <img src={Logo} alt="Netflix" className="navbar-logo" />
+        </Link>
+        <nav className="navbar-nav" aria-label="Main navigation">
+          <ul>
+            {NAV_LINKS.map((link) => (
+              <li key={link.to} className={isActive(link.to) ? 'active' : ''}>
+                <Link to={link.to}>{link.label}</Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+
+      <div className="navbar-right">
+        <button
+          className="navbar-icon-btn"
+          onClick={() => navigate('/search')}
+          aria-label="Search"
+        >
+          <img src={SearchIcon} alt="" className="icons" />
+        </button>
+        <span className="navbar-children">Children</span>
+        <button className="navbar-icon-btn" aria-label="Notifications">
+          <img src={Bell} alt="" className="icons" />
+        </button>
+
+        <div className="navbar-profile">
+          <img src={Profile} alt="" className="profile" />
+          <img src={Caret} alt="" className="caret" />
+
+          <div className="dropdown">
+            {isAuthenticated ? (
+              <button
+                onClick={() => {
+                  logout()
+                  navigate('/login')
+                }}
+              >
+                Sign out of Netflix
+              </button>
+            ) : (
+              <button onClick={() => navigate('/login')}>Sign In</button>
+            )}
+          </div>
         </div>
+      </div>
 
-        <div className="navbar-right mobile-none">
-            <img src={Search} alt="" className='icons'/>
-            <p>Children</p>
-            <img src={Bell} alt="" className='icons'/>
-
-            <div className="navbar-profile">
-                <img src={Profile} alt="" className='profile'/>
-                <img src={Caret} alt=""/>
-
-                <div className="dropdown">
-                    <p>sign out netflix</p>
-                </div>
-            </div>
-        </div>
-         <MdOutlineMenu className='burger-menu'/>
-    </div>
+      <button
+        className="burger-menu"
+        onClick={() => setMobileMenuOpen(true)}
+        aria-label="Open menu"
+      >
+        <MdOutlineMenu />
+      </button>
+    </header>
   )
 }
 

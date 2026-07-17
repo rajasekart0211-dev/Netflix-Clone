@@ -1,65 +1,11 @@
-.hero{
-    position: relative;
-}
-.hero-img{
-    width: 100%;
-    mask-image: linear-gradient(to right, transparent, black 75%);
-}
-.hero-caption{
-    position: absolute;
-    bottom: 0px;
-    width: 100%;
-    padding-left: 6%;
-}
-.hero-caption p{
-    max-width: 700px;
-    font-size: 17px;
-    margin-bottom: 20px;
+.more-cards {
+  position: relative;
+  padding: 0 var(--page-padding) 2rem;
+  margin-top: -2rem;
 }
 
-.caption-img{
-    width: 90%;
-    max-width: 420px;
-    margin-bottom: 30px;
-}
-.hero-btns{
-    display: flex;
-    gap: 10px;
-    margin-bottom: 50px;
-}
-.hero-btns .btn img{
-    width: 25px;
-}
-.hero-btns .btn{
-    border: 0;
-    outline: 0;
-    padding: 8px 20px;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 15px;
-    font-weight: 600;
-    background-color: white;
-    border-radius: 4px;
-    cursor: pointer;
-}
-.hero-btns .btn.dark{
-    color: white;
-    background: #6d6d6eb3;
-}
-.hero-btns .btn:hover{
-    background: #ffffffbf;
-}
-.hero-btns .btn.dark:hover{
-    background: #6d6d6e66;
-}
-.more-cards{
-    position: relative;
-    padding-left: 6%;
-}
-
-@media(max-width:700px){
-    .caption{
-        display: none;
-    }
+@media (max-width: 768px) {
+  .more-cards {
+    margin-top: -1rem;
+  }
 }
